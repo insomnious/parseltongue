@@ -1,5 +1,5 @@
 # parseltongue
-Converts Hogwarts Legacy language .bin file to and from JSON.
+Parses Hogwarts Legacy language .bin files and converts to and from JSON.
 
 ## Usage
 
