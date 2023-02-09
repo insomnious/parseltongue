@@ -194,11 +194,11 @@ namespace HogwartsLocalisationConverter
         
         static string ReadStringAtOffset(BinaryReader br, long offset, int length)
         {
-            long pos = br.BaseStream.Position;
+            long position = br.BaseStream.Position;
             br.BaseStream.Seek(offset,SeekOrigin.Begin);
-            string ret = Encoding.UTF8.GetString(br.ReadBytes(length));
-            br.BaseStream.Seek(pos, SeekOrigin.Begin);
-            return ret;
+            string s = Encoding.UTF8.GetString(br.ReadBytes(length));
+            br.BaseStream.Seek(position, SeekOrigin.Begin);
+            return s;
         }
     }
 
