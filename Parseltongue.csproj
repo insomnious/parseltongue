@@ -7,9 +7,12 @@
         <Nullable>enable</Nullable>
         <AssemblyName>Parseltongue</AssemblyName>
         <RootNamespace>Parseltongue</RootNamespace>
+        <IsPackable>false</IsPackable>
+        <Version>0.2.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CsvHelper" Version="30.0.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3-beta1" />
       <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
       <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
@@ -20,6 +23,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="SampleFiles\MAIN-enUS.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="SampleFiles\language.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

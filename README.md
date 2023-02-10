@@ -1,5 +1,5 @@
 # parseltongue
-Parses Hogwarts Legacy language .bin files and converts to and from JSON.
+Parses Hogwarts Legacy language .bin files and converts to and from various formats, primarily JSON.
 
 ## Usage
 
@@ -22,12 +22,15 @@ Parses Hogwarts Legacy language .bin files and converts to and from JSON.
 
 `json2bin <file>`  Convert .json to .bin
 
+`csv2bin <file>`  Convert .csv to .bin
+
 ### Examples
 
 ```shell
 Parseltongue.exe input.bin
 Parseltongue.exe bin2json input.binary
 Parseltongue.exe json2bin inputjson.txt
+Parseltongue.exe csv2bin inputcsv.txt
 ```
 
 

@@ -1,8 +1,11 @@
 ﻿using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using CsvHelper;
+using CsvHelper.Configuration;
 using Newtonsoft.Json;
 using JsonException = System.Text.Json.JsonException;
 
@@ -16,28 +19,36 @@ namespace HogwartsLocalisationConverter
         
         public static void Main(string[] args)
         {
-            var binCommand = new Command("bin2json", "Convert .bin to .json")
+            var bin2JsonCommand = new Command("bin2json", "Convert .bin to .json")
             {
                 new Argument<FileInfo>("file", "File to convert")
             };
             
-            var jsonCommand = new Command("json2bin", "Convert .json to .bin")
+            var json2BinCommand = new Command("json2bin", "Convert .json to .bin")
             {
                 new Argument<FileInfo>("file", "File to convert")
             };
 
-            var rootCommand = new RootCommand("Converts Hogwarts Legacy language .bin file to and from JSON.")
+            var csv2BinCommand = new Command("csv2bin", "Convert .csv to .bin")
             {
-                new Argument<FileInfo>("file", "File to convert (will detect extension and use the necessary converter")
+                new Argument<FileInfo>("file", "File to convert")
+            };
+            
+            
+            var rootCommand = new RootCommand("Converts to and from Hogwarts Legacy language .bin files.")
+            {
+                new Argument<FileInfo>("file", "File to convert (will detect extension and attempt to use the necessary converter).")
             };
             
             rootCommand.Handler = CommandHandler.Create<FileInfo>(GuessTheFile);
 
-            binCommand.Handler = CommandHandler.Create<FileInfo>(BinToJson);
-            jsonCommand.Handler = CommandHandler.Create<FileInfo>(JsonToBin);
+            bin2JsonCommand.Handler = CommandHandler.Create<FileInfo>(BinToJson);
+            json2BinCommand.Handler = CommandHandler.Create<FileInfo>(JsonToBin);
+            csv2BinCommand.Handler = CommandHandler.Create<FileInfo>(CsvToBin);
 
-            rootCommand.AddCommand(binCommand);
-            rootCommand.AddCommand(jsonCommand);
+            rootCommand.AddCommand(bin2JsonCommand);
+            rootCommand.AddCommand(json2BinCommand);
+            rootCommand.AddCommand(csv2BinCommand);
             
             rootCommand.Invoke(args);
         }
@@ -55,15 +66,46 @@ namespace HogwartsLocalisationConverter
                     Console.WriteLine($"Detected a JSON file. Converting to BIN...");
                     JsonToBin(file);
                     break;
+                case ".csv":
+                    Console.WriteLine($"Detected a CSV file. Converting to BIN...");
+                    CsvToBin(file);
+                    break;
                 default:
                     Console.WriteLine($"Unknown file extension");
                     break;
             }
         }
         
+        public class Foo
+        {
+            public string key { get; set; }
+            public string value { get; set; }
+        }
+
+        private static void CsvToBin(FileInfo file)
+        {
+            var entries = new Dictionary<string, string>();
+            
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false,
+            };
+
+            using (var reader = new StreamReader(file.FullName))
+            {
+                using (var csv = new CsvReader(reader, config))
+                {
+                    var records = csv.GetRecords<Foo>();
+                    entries = records.ToDictionary(r => r.key, r => r.value.Replace(@"\\n", @"\n"));
+                }
+            }
+            
+            WriteBinFromDictionary(file.FullName, entries);
+        }
+
         private static void JsonToBin(FileInfo file)
         {
-           var entries = new Dictionary<string, string>();
+            var entries = new Dictionary<string, string>();
             
             // load json into dictionary
 
@@ -77,15 +119,20 @@ namespace HogwartsLocalisationConverter
                 return;
             }
 
+            //File.WriteAllText(Path.ChangeExtension(file.FullName, ".json"), jsonString);
+            WriteBinFromDictionary(file.FullName, entries);
+        }
+        
+        
+        private static void WriteBinFromDictionary(string file, Dictionary<string, string> entries)
+        {
             if (entries.Count == 0)
             {
-                Console.WriteLine($"Empty JSON dictionary");
+                Console.WriteLine($"Empty dictionary");
                 return;
             }
-            
-            //File.WriteAllText(Path.ChangeExtension(file.FullName, ".json"), jsonString);
-            
-            using (var fs = File.Open(Path.ChangeExtension(file.FullName, ".bin"), FileMode.Create))
+
+            using (var fs = File.Open(Path.ChangeExtension(file, ".bin"), FileMode.Create))
             {
                 using (var bw = new BinaryWriter(fs, Encoding.UTF8, false))
                 {
@@ -143,7 +190,10 @@ namespace HogwartsLocalisationConverter
                 }
             }
             
+            
         }
+
+        
 
         private static void BinToJson(FileInfo file)
         {
