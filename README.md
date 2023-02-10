@@ -46,6 +46,10 @@ For specify a certain convertor
 
 `Parseltongue.exe json2bin language_json.txt` will output `language_json.bin`
 
+## Notes
+
+CSV conversion has only been tested with a `.csv` exported from Google Sheets
+
 ## Credits
 
 - Snake Icon by [Vectors Market](https://iconscout.com/icons/snake-head)  
