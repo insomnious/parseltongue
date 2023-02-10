@@ -48,6 +48,6 @@ For specify a certain convertor
 
 ## Credits
 
-- Snake Icon by [Vectors Market]("https://iconscout.com/icons/snake-head")  
+- Snake Icon by [Vectors Market](https://iconscout.com/icons/snake-head)  
 - Testers from the [Hogwarts Legacy Modding](https://discord.gg/Bmmtv3sYAa) discord server:
   - [tucker](https://hamstersquad.github.io/)
