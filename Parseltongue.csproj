@@ -9,6 +9,7 @@
         <RootNamespace>Parseltongue</RootNamespace>
         <IsPackable>false</IsPackable>
         <Version>0.2.0</Version>
+        <ApplicationIcon>snake-head.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>

@@ -30,6 +30,7 @@ riderModule.iml
 
 *.suo
 *.user
+*.ico
 .vs/
 [Bb]in/
 [Oo]bj/
