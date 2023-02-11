@@ -96,7 +96,12 @@ namespace HogwartsLocalisationConverter
                 using (var csv = new CsvReader(reader, config))
                 {
                     var records = csv.GetRecords<Foo>();
-                    entries = records.ToDictionary(r => r.key, r => r.value.Replace(@"\\n", @"\n"));
+                    entries = records.ToDictionary(r => r.key, r =>
+                    {
+                        string s = r.value.Replace(@"\n", "\n");
+                        s = s.Replace(@"\""", @"""");
+                        return s;
+                    });
                 }
             }
             
