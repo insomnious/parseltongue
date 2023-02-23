@@ -95,8 +95,18 @@ namespace HogwartsLocalisationConverter
             {
                 using (var csv = new CsvReader(reader, config))
                 {
-                    var records = csv.GetRecords<Foo>();
-                    entries = records.ToDictionary(r => r.key, r => r.value.Replace(@"\\n", @"\n"));
+                    try
+                    {
+                        var records = csv.GetRecords<Foo>();
+                        entries = records.ToDictionary(r => r.key, r => r.value.Replace(@"\\n", @"\n"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        Console.WriteLine("Press Enter key to close...");
+                        Console.ReadLine();
+                        return;
+                    }
                 }
             }
             
@@ -123,6 +133,13 @@ namespace HogwartsLocalisationConverter
             WriteBinFromDictionary(file.FullName, entries);
         }
         
+        static string AddSuffix(string filename, string suffix)
+        {
+            string fDir = Path.GetDirectoryName(filename);
+            string fName = Path.GetFileNameWithoutExtension(filename);
+            string fExt = Path.GetExtension(filename);
+            return Path.Combine(fDir, String.Concat(fName, suffix, fExt));
+        }
         
         private static void WriteBinFromDictionary(string file, Dictionary<string, string> entries)
         {
@@ -132,7 +149,9 @@ namespace HogwartsLocalisationConverter
                 return;
             }
 
-            using (var fs = File.Open(Path.ChangeExtension(file, ".bin"), FileMode.Create))
+            string modifiedPath = AddSuffix(file,"-modified");
+
+            using (var fs = File.Open(modifiedPath, FileMode.Create))
             {
                 using (var bw = new BinaryWriter(fs, Encoding.UTF8, false))
                 {
@@ -238,7 +257,9 @@ namespace HogwartsLocalisationConverter
                 }
                 
                 var jsonString = JsonConvert.SerializeObject(entries, Formatting.Indented);
-                File.WriteAllText(Path.ChangeExtension(file.FullName, ".json"), jsonString);
+                
+                string modifiedPath = AddSuffix(file.FullName,"-modified");
+                File.WriteAllText(modifiedPath, jsonString);
             }
         }
         

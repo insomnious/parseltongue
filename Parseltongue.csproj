@@ -8,7 +8,7 @@
         <AssemblyName>Parseltongue</AssemblyName>
         <RootNamespace>Parseltongue</RootNamespace>
         <IsPackable>false</IsPackable>
-        <Version>0.2.0</Version>
+        <Version>0.2.2</Version>
         <ApplicationIcon>snake-head.ico</ApplicationIcon>
     </PropertyGroup>
 
@@ -27,6 +27,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="SampleFiles\language.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="SampleFiles\SUB-enUS.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

@@ -40,11 +40,11 @@ For specify a certain convertor
 
 ### Examples
 
-`Parseltongue.exe language.bin` will output `language.json`
+`Parseltongue.exe language.bin` will output `language-modified.json`
 
-`Parseltongue.exe language.json` will output `language.bin`
+`Parseltongue.exe language.json` will output `language-modified.bin`
 
-`Parseltongue.exe json2bin language_json.txt` will output `language_json.bin`
+`Parseltongue.exe json2bin language_json.txt` will output `language_json-modified.bin`
 
 ## Notes
 
@@ -55,3 +55,34 @@ CSV conversion has only been tested with a `.csv` exported from Google Sheets
 - Snake Icon by [Vectors Market](https://iconscout.com/icons/snake-head)  
 - Testers from the [Hogwarts Legacy Modding](https://discord.gg/Bmmtv3sYAa) discord server:
   - [tucker](https://hamstersquad.github.io/)
+
+## Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+
+### [v0.2.2] - 2023-02-23
+
+Few small quality of life tweaks
+
+#### Changed
+
+- Changed output to include '-modified' suffix to the filename
+- Output window stays open if an error has occured
+
+#### Fixed
+
+- Fixed uncaught error when duplicate keys appeared in the CSV
+
+### [v0.2.1] - 2023-02-04
+
+Fixed bug where quotes in CSV files were being double escaped when converting to BIN
+
+### [v0.2.0] - yyyy-mm-dd
+
+Added support to convert .csv to .bin
+
+### [v0.1.0] - yyyy-mm-dd
+
+Initial release that supports BIN to JSON and JSON to BIN
