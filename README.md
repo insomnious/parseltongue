@@ -75,14 +75,14 @@ Few small quality of life tweaks
 
 - Fixed uncaught error when duplicate keys appeared in the CSV
 
-### [v0.2.1] - 2023-02-04
+### [v0.2.1] - 2023-02-12
 
 Fixed bug where quotes in CSV files were being double escaped when converting to BIN
 
-### [v0.2.0] - yyyy-mm-dd
+### [v0.2.0] - 2023-02-10
 
 Added support to convert .csv to .bin
 
-### [v0.1.0] - yyyy-mm-dd
+### [v0.1.0] - 2023-02-09
 
 Initial release that supports BIN to JSON and JSON to BIN

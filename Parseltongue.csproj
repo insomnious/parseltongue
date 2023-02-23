@@ -5,8 +5,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>Parseltongue</AssemblyName>
-        <RootNamespace>Parseltongue</RootNamespace>
+        <AssemblyName>parseltongue</AssemblyName>
+        <RootNamespace>parseltongue</RootNamespace>
         <IsPackable>false</IsPackable>
         <Version>0.2.2</Version>
         <ApplicationIcon>snake-head.ico</ApplicationIcon>
