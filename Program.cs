@@ -154,7 +154,7 @@ namespace HogwartsLocalisationConverter
                 return;
             }
 
-            string modifiedPath = AddSuffix(file,"-modified");
+            string modifiedPath = Path.ChangeExtension(AddSuffix(file,"-modified"), ".bin");
 
             using (var fs = File.Open(modifiedPath, FileMode.Create))
             {
@@ -263,7 +263,7 @@ namespace HogwartsLocalisationConverter
                 
                 var jsonString = JsonConvert.SerializeObject(entries, Formatting.Indented);
                 
-                string modifiedPath = AddSuffix(file.FullName,"-modified");
+                string modifiedPath =  Path.ChangeExtension(AddSuffix(file.FullName,"-modified"), ".json");
                 File.WriteAllText(modifiedPath, jsonString);
             }
         }

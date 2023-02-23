@@ -62,6 +62,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### [v0.2.3] - 2023-02-23
+
+Fixed bug where output file wasn't changing extension
+
 ### [v0.2.2] - 2023-02-23
 
 Few small quality of life tweaks

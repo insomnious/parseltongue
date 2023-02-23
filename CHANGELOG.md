@@ -14,6 +14,10 @@ To be announced
 
 ### Fixed
 
+## [v0.2.3] - 2023-02-23
+
+Fixed bug where output file wasn't changing extension
+
 ## [v0.2.2] - 2023-02-23
 
 Few small quality of life tweaks
